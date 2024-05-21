@@ -1,7 +1,14 @@
+import CardParent from './CardParent';
+
 export default function LoginForm() {
   return (
-    <div>
+    <CardParent
+      title="Login"
+      returnLabel="Create an account"
+      returnHref="/auth/register"
+      showSocials
+    >
       <span>LoginForm</span>
-    </div>
+    </CardParent>
   );
 }
