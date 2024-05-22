@@ -5,6 +5,8 @@ import { RegisterSchema } from '../schemas';
 
 import bcrypt from 'bcryptjs';
 import prisma from '../prisma';
+import { generateVerificationToken } from '../verificationToken';
+import { sendEmailVerification } from '../email';
 
 export async function register(data: z.infer<typeof RegisterSchema>) {
   try {
@@ -41,8 +43,11 @@ export async function register(data: z.infer<typeof RegisterSchema>) {
       },
     });
 
+    const verificationToken = await generateVerificationToken(email);
+
+    await sendEmailVerification(email, verificationToken.token);
     return {
-      success: 'Registered in successfully',
+      success: 'Verification email sent!',
     };
   } catch (err) {
     console.log('Error in register.ts', err);

@@ -49,6 +49,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       return session;
     },
+    async signIn({ user, account }) {
+      if (account?.provider !== 'credentials') return true;
+
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          email: user.id,
+        },
+      });
+
+      if (!existingUser?.emailVerified) return false;
+
+      return true;
+    },
   },
 });
 
