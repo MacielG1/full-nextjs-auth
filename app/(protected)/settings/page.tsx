@@ -1,6 +1,8 @@
-import { signOut } from '@/lib/auth';
+import { auth, signOut } from '@/lib/auth';
 
-export default function page() {
+export default async function page() {
+  const session = await auth();
+
   async function handleLogout() {
     'use server';
     await signOut();
@@ -8,6 +10,7 @@ export default function page() {
   return (
     <div>
       <form action={handleLogout}>
+        {JSON.stringify(session)}
         <button type="submit">Logout</button>
       </form>
     </div>

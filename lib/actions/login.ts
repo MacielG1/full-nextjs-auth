@@ -25,6 +25,10 @@ export async function login(data: z.infer<typeof LoginSchema>) {
         password,
         redirectTo: defaultLoginRedirect,
       });
+
+      return {
+        success: 'Logged in successfully',
+      };
     } catch (err) {
       if (err instanceof AuthError) {
         if (err.type === 'CredentialsSignin') {
