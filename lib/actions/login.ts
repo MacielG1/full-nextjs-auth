@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 import { LoginSchema } from '../schemas';
+import { signIn } from '@/lib/auth';
+import { defaultLoginRedirect } from '@/middleware';
+import { AuthError } from 'next-auth';
 
 export async function login(data: z.infer<typeof LoginSchema>) {
   try {
@@ -14,9 +17,24 @@ export async function login(data: z.infer<typeof LoginSchema>) {
       };
     }
 
-    return {
-      success: 'Logged in successfully',
-    };
+    const { email, password } = validate.data;
+
+    try {
+      await signIn('credentials', {
+        email,
+        password,
+        redirectTo: defaultLoginRedirect,
+      });
+    } catch (err) {
+      if (err instanceof AuthError) {
+        if (err.type === 'CredentialsSignin') {
+          return { error: 'Invalid credentials' };
+        } else {
+          return { error: 'An error occurred' };
+        }
+      }
+      throw err;
+    }
   } catch (err) {
     console.log('Error in login.ts', err);
     return {
