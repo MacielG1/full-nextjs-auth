@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 
 export const { auth } = NextAuth(authConfig);
 
-export const authRoutes = ['/auth/login', '/auth/register'];
+export const authRoutes = ['/auth/login', '/auth/register', '/auth/error'];
 export const defaultLoginRedirect = '/settings';
 
 export default auth((req) => {
