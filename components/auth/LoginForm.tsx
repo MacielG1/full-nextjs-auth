@@ -20,10 +20,11 @@ import FormSuccess from '../FormSuccess';
 import { login } from '@/lib/actions/login';
 import { useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginForm() {
-  const [error, setError] = useState<string | undefined>('');
-  const [success, setSuccess] = useState<string | undefined>('');
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
@@ -86,6 +87,14 @@ export default function LoginForm() {
                   <FormControl>
                     <Input {...field} placeholder="********" type="password" />
                   </FormControl>
+                  <Button
+                    className="px-0 font-normal"
+                    variant="link"
+                    size="sm"
+                    asChild
+                  >
+                    <Link href="/auth/password-reset">Forgot password?</Link>
+                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
