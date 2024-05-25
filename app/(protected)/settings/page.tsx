@@ -1,16 +1,13 @@
-import { auth, signOut } from '@/lib/auth';
+import { logout } from '@/lib/actions/logout';
+import { useSession } from 'next-auth/react';
 
 export default async function page() {
-  const session = await auth();
+  // const session = useSession();
 
-  async function handleLogout() {
-    'use server';
-    await signOut();
-  }
   return (
     <div>
-      <form action={handleLogout}>
-        {JSON.stringify(session)}
+      <form action={logout}>
+        {/* {JSON.stringify(session)} */}
         <button type="submit">Logout</button>
       </form>
     </div>

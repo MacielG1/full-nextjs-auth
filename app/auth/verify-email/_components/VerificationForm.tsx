@@ -11,15 +11,19 @@ export default function VerificationForm() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
-  const token = useSearchParams().get('token');
+  const searchParams = useSearchParams();
+
+  const token = searchParams.get('token');
 
   const handleSubmit = useCallback(async () => {
+    if (success || error) return;
+
     if (!token) return setError('Token not found');
 
     const data = await verifyEmail(token);
     setError(data.error);
     setSuccess(data.success);
-  }, [token]);
+  }, [token, success, error]);
 
   useEffect(() => {
     handleSubmit();
@@ -37,7 +41,7 @@ export default function VerificationForm() {
         )}
         <FormSuccess message={success} />
 
-        <FormError message={error} />
+        {!success && <FormError message={error} />}
       </div>
     </CardParent>
   );

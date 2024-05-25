@@ -32,11 +32,9 @@ export default {
           if (!user || !user.password) {
             return null;
           }
-          console.log('user', user);
 
           const isValid = await bcrypt.compare(password, user.password);
 
-          console.log('isValid', isValid);
           if (isValid) {
             return user;
           }

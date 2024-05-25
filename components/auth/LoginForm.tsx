@@ -19,13 +19,15 @@ import FormError from '../FormError';
 import FormSuccess from '../FormSuccess';
 import { login } from '@/lib/actions/login';
 import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LoginForm() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [showTwoFactor, setShowTwoFactor] = useState(false);
+
+  const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
@@ -48,15 +50,15 @@ export default function LoginForm() {
 
     startTransition(async () => {
       const res = await login(data);
-      if (res.error) {
-        form.reset();
+      if (res?.error) {
+        // form.reset();
         setError(res.error);
       }
-      if (res.success) {
+      if (res?.success) {
         form.reset();
         setSuccess(res.success);
       }
-      if (res.twoFactor) {
+      if (res?.twoFactor) {
         setShowTwoFactor(true);
       }
     });
