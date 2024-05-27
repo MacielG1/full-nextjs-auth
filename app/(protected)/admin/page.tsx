@@ -5,7 +5,7 @@ import admin from '@/lib/actions/admin';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 
-export default function page() {
+export default function Page() {
   const session = useSession();
 
   async function testApiRoute() {

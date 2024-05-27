@@ -5,10 +5,14 @@ import Github from '../icons/github';
 import Google from '../icons/google';
 import { Button } from '../ui/button';
 import { defaultLoginRedirect } from '@/middleware';
+import { useSearchParams } from 'next/navigation';
 
 export default function Socials() {
+  const searchParams = useSearchParams();
+  const previousUrl = searchParams.get('previousUrl');
+
   function handleClick(provider: 'google' | 'github') {
-    signIn(provider, { callbackUrl: defaultLoginRedirect });
+    signIn(provider, { callbackUrl: previousUrl || defaultLoginRedirect });
   }
 
   return (

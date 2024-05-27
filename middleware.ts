@@ -31,7 +31,15 @@ export default auth((req) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL('/auth/login', nextUrl));
+    let previousUrl = nextUrl.pathname;
+    if (nextUrl.searchParams) {
+      previousUrl += nextUrl.search;
+    }
+    const newUrl = encodeURIComponent(previousUrl);
+
+    return Response.redirect(
+      new URL(`/auth/login?previousUrl=${newUrl}`, nextUrl)
+    );
   }
 
   return;

@@ -36,6 +36,8 @@ export default function LoginForm() {
       ? 'Email already used with another provider'
       : '';
 
+  const previousUrl = searchParams.get('previousUrl');
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -49,7 +51,7 @@ export default function LoginForm() {
     setSuccess('');
 
     startTransition(async () => {
-      const res = await login(data);
+      const res = await login(data, previousUrl);
       if (res?.error) {
         // form.reset();
         setError(res.error);

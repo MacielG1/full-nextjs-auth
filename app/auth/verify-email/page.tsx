@@ -1,5 +1,5 @@
 import VerificationForm from './_components/VerificationForm';
 
-export default function page() {
+export default function Page() {
   return <VerificationForm />;
 }

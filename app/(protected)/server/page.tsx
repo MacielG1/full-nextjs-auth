@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { auth } from '@/lib/auth';
 
-export default async function page() {
+export default async function Page() {
   const session = await auth();
   return (
     <div>

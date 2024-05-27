@@ -2,7 +2,7 @@ import Header from '@/components/auth/Header';
 import ReturnButton from '@/components/auth/ReturnButton';
 import { Card, CardFooter, CardHeader } from '@/components/ui/card';
 
-export default function page() {
+export default function Page() {
   return (
     <Card className="w-96 shadow-md">
       <CardHeader>

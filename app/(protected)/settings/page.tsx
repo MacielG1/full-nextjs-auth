@@ -32,7 +32,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-export default function page() {
+export default function Page() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
