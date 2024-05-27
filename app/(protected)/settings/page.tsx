@@ -57,9 +57,8 @@ export default function Page() {
   const form = useForm<z.infer<typeof userSettingsSchema>>({
     resolver: zodResolver(userSettingsSchema),
     defaultValues: {
-      // name: session.data?.user?.name || undefined,
-      name: '',
-      email: '',
+      name: session.data?.user?.name || undefined,
+      email: session.data?.user?.email || undefined,
       password: undefined,
       newPassword: undefined,
       isTwoFactorEnabled: session.data?.user?.isTwoFactorEnabled || undefined,
@@ -86,10 +85,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={session.data?.user?.name || undefined}
-                        {...field}
-                      />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,10 +100,7 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder={session.data?.user?.email || undefined}
-                            {...field}
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
