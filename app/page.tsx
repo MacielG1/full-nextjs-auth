@@ -20,9 +20,9 @@ export default function Home() {
         </h1>
         <p className="text-lg"> Next.js Auth </p>
         <div>
-          <LoginButton>
+          <LoginButton mode="modal" asChild>
             <Button variant="secondary" size="lg">
-              Login
+              Enter
             </Button>
           </LoginButton>
         </div>
